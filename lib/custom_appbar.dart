@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({super.key});
-
+  const CustomAppbar({required this.icon,required this.title,super.key});
+  final String title;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,13 +11,13 @@ class CustomAppbar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Note app'),
+          Text(title),
           GestureDetector(
              
             onTap: (){},
             child: Container(
               child: 
-              Icon(Icons.search),
+              Icon(icon),
             ),
           )
         ],

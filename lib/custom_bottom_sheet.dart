@@ -14,9 +14,8 @@ class CustomBottomSheet extends StatelessWidget {
            CustomTextField(hintText: "the title",activeColor: Colors.green,),
            SizedBox(height: 5,),
            CustomTextField(hintText: "Description ",maxline: 5,activeColor: Colors.green,),
-           SizedBox(
-             height: 20,
-           ),
+           
+           
            CustomButton()
            
          ],
