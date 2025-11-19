@@ -12,7 +12,7 @@ class CustomAppbar extends StatelessWidget {
         children: [
           Text('Note app'),
           GestureDetector(
-             behavior: HitTestBehavior.translucent,
+             
             onTap: (){},
             child: Container(
               child: 

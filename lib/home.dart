@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/custom_appbar.dart';
+import 'package:note_app/custom_bottom_sheet.dart';
 import 'package:note_app/note_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,7 +9,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-     floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.add),),
+     floatingActionButton: FloatingActionButton(onPressed: (){
+       showModalBottomSheet(context: context,
+        builder: (context){
+         return CustomBottomSheet();
+       });
+     },child: Icon(Icons.add),),
       body: Column(
         children: [
           SizedBox(height: 15,),
