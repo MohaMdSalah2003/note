@@ -5,10 +5,10 @@ part 'note_model.g.dart';
 class NoteModel extends HiveObject
 {
 @HiveField(0)
- final String title;
+  String title;
   
 @HiveField(1)
-  final String description;
+   String description;
   
 @HiveField(2)
   final String date;

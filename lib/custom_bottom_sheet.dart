@@ -98,17 +98,19 @@ class _AddNoteFormState extends State<AddNoteForm> {
 }
 
 class CustomTextField extends StatelessWidget {
-const   CustomTextField({required this.errmessage,this.onsaved,this.activeColor=Colors.white,required this.hintText,this.maxline =1,
+const   CustomTextField({required this.errmessage,this.onchange,this.onsaved,this.activeColor=Colors.white,required this.hintText,this.maxline =1,
     super.key,
   });
 final Color activeColor;
 final String hintText;
 final int maxline;
 final void Function(String?)? onsaved;
+final void Function(String?)? onchange;
 final String errmessage;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onchange,
       onSaved: onsaved,
       maxLines: maxline,
       validator: (value) {

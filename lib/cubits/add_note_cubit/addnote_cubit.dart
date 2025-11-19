@@ -17,7 +17,7 @@ addNote(NoteModel note)async{
  emit(AddnoteSuccess());
   }
   catch(e){
-    AddnoteFailure(e.toString());
+    emit(AddnoteFailure(e.toString()));
   }}
 
 }
