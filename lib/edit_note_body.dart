@@ -12,9 +12,9 @@ class EditViewBody extends StatelessWidget {
         SizedBox(height: 20,),
         CustomAppbar(title: "edit note",icon: Icons.done,)
         ,SizedBox(height: 20,),
-        CustomTextField(hintText: 'title',),
+        CustomTextField(hintText: 'title',errmessage: "title ",),
         SizedBox(height: 50,),
-        CustomTextField(hintText: 'description',maxline: 5,)
+        CustomTextField(hintText: 'description',maxline: 5,errmessage: "description",)
       ],
     );
   }
