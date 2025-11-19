@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/cubits/add_note_cubit/addnote_cubit.dart';
+import 'package:note_app/note_model.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: EdgeInsets.only(left: 15, right: 15,top: 15),
-      child: SingleChildScrollView(
-        child: BlocConsumer(
+    return  BlocProvider(
+      create: (context) => AddnoteCubit(),
+      child: Padding(
+        padding: EdgeInsets.only(left: 15, right: 15,top: 15,
+         bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: BlocListener(
           
           listener: (context, state) {
-            
+            if(state is AddnoteFailure){
+              print("Failure");
+            }
+            if(state is AddnoteSuccess){
+              Navigator.pop(context);
+            }
           },
-          builder: (context, state) {
-            return ModalProgressHUD(
-              inAsyncCall: state is AddnoteLoading? true:false,
-              child: AddNoteForm());
-          },
+          child: SingleChildScrollView(child: AddNoteForm())
+          ,
           ),
       ),
     );
@@ -63,18 +67,26 @@ class _AddNoteFormState extends State<AddNoteForm> {
            hintText: "Description ",maxline: 5,activeColor: Colors.green,),
          
          
-         CustomButton(
-           ontap: () {
-             if(formkey.currentState!.validate()){
-               formkey.currentState!.save();
-             }
-             else{
-               autovalidateMode = AutovalidateMode.always;
-               setState(() {
-                 
-               });
-             }
-           },
+         BlocBuilder<AddnoteCubit,AddnoteState>(
+        builder: (context, state) {
+          return CustomButton(
+            isloading: state is AddnoteLoading ? true: false,
+             ontap: () {
+               if(formkey.currentState!.validate()){
+                 formkey.currentState!.save();
+                 var noteModel = NoteModel(title: title!, description: description!, date: DateTime.now.toString());
+                 BlocProvider.of<AddnoteCubit>(context).addNote(noteModel);
+               }
+               else{
+                 autovalidateMode = AutovalidateMode.always;
+                 setState(() {
+                   
+                 });
+               }
+             },
+           );
+        },
+           
          )
          
        ],
@@ -115,8 +127,9 @@ final String errmessage;
   }
 }
 class CustomButton extends StatelessWidget {
-  const CustomButton({this.ontap,super.key});
+  const CustomButton({this.isloading = false,this.ontap,super.key});
   final void Function()? ontap;
+  final bool isloading;
   @override
   Widget build(BuildContext context) {
     return  GestureDetector(
@@ -129,7 +142,7 @@ class CustomButton extends StatelessWidget {
           color: Colors.green,
           borderRadius: BorderRadius.circular(15)
         ),
-        child: Center(child: Text("data")),
+        child: isloading? CircularProgressIndicator(): Center(child: Text('data'),),
       ),
     );
   }

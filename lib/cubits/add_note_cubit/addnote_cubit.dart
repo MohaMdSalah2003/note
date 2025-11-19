@@ -7,11 +7,14 @@ part 'addnote_state.dart';
 
 class AddnoteCubit extends Cubit<AddnoteState> {
   AddnoteCubit() : super(AddnoteInitial());
-addNote(NoteModel note){
+
+
+addNote(NoteModel note)async{
   emit(AddnoteLoading());
   try{
  var notesBox = Hive.box("note_box");
- notesBox.add(note);  
+ await notesBox.add(note);  
+ emit(AddnoteSuccess());
   }
   catch(e){
     AddnoteFailure(e.toString());
